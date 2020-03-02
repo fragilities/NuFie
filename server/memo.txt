@@ -1,0 +1,26 @@
+functions (controller):
+- user:
+-+ CRUD
+-+ firebase auth
+-+ getInviteRecommendation
+-+ getByInterest
+
+- promo:
+-+ CRUD (owner only)
+-+ Invite (owner only)
+-+ Kick (owner only)
+-+ Commit (owner only)
+-+ Leave (member only)
+-+ getByCategory (memberOnly)
+
+-+ interest:
+-+ CRUD (owner only)
+-+ Invite (owner only)
+-+ Kick (owner only)
+-+ Commit (owner only)
+-+ Leave (member only)
+-+ getByCategory (memberOnly)
+
+- partnerPromo:
+-+ CRUD (admin only)
+-+ getByAvailable (only fetch PartnerPromos that are eligible)

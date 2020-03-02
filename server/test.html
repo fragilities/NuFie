@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+            name="google-signin-client_id"
+            content="593235535144-0ls6o3u205c16kt7fusno2duqup0n8uq.apps.googleusercontent.com"
+        />
+        <title>Document</title>
+        <script
+            src="https://apis.google.com/js/platform.js"
+            async
+            defer
+        ></script>
+    </head>
+    <body>
+        <form id="test">
+            <input type="text" id="email" placeholder="email" />
+            <input type="password" id="password" placeholder="password" />
+            <input type="submit" value='register'/>
+        </form>
+
+        <form id="test2">
+            <input type="text" id="email2" placeholder="email" />
+            <input type="password" id="password2" placeholder="password" />
+            <input type="submit" value='login'/>
+        </form>
+
+        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+        <a href="#" onclick="signOut()">Sign out</a>
+
+        <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+        <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-app.js"></script>
+
+        <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+        <script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-analytics.js"></script>
+
+        <!-- Add Firebase products that you want to use -->
+        <script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.8.2/firebase-firestore.js"></script>
+
+        <script>
+            $("document").ready(function() {
+                const firebaseConfig = {
+                    apiKey: "AIzaSyAQUG7bgLfBKH8rEFqnOr78wgzC0WjAbA8",
+                    authDomain: "nufie-2de4f.firebaseapp.com",
+                    databaseURL: "https://nufie-2de4f.firebaseio.com",
+                    projectId: "nufie-2de4f",
+                    storageBucket: "nufie-2de4f.appspot.com",
+                    messagingSenderId: "593235535144",
+                    appId: "1:593235535144:web:bc6d3b339aa36c85059c1d",
+                    measurementId: "G-9844J07JXK"
+                };
+
+                firebase.initializeApp(firebaseConfig);
+
+                firebase.auth().onAuthStateChanged(function(user) {
+                    if (user) {
+                        // console.log(user)
+                        firebase
+                            .auth()
+                            .currentUser.getIdToken(/* forceRefresh */ true)
+                            .then((idToken) => {
+                                console.log(idToken);
+                            })
+                            .catch((error) => {
+                                console.log(error);
+                            });
+                    } else {
+                        console.log("not logged in");
+                    }
+                });
+
+                $("#test").submit(function(e) {
+                    e.preventDefault();
+                    const email = $("#email").val();
+                    const password = $("#password").val();
+                    firebase
+                        .auth()
+                        .createUserWithEmailAndPassword(email, password);
+                });
+                $("#test2").submit(function(e) {
+                    e.preventDefault();
+                    const email = $("#email2").val();
+                    const password = $("#password2").val();
+                    firebase
+                        .auth()
+                        .signInWithEmailAndPassword(email, password);
+                });
+            });
+
+            function signOut() {
+                var auth2 = gapi.auth2.getAuthInstance();
+                auth2.signOut().then(function() {
+                    console.log("User signed out.");
+                });
+            }
+
+            function onSignIn(googleUser) {
+                var profile = googleUser.getBasicProfile();
+                var id_token = googleUser.getAuthResponse().id_token;
+                // console.log("id_token", id_token);
+                // console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+                // console.log('Name: ' + profile.getName());
+                // console.log('Image URL: ' + profile.getImageUrl());
+                // console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+            }
+        </script>
+    </body>
+</html>
