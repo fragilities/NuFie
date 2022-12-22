@@ -19,7 +19,7 @@
     "firebase": "^7.9.0",
     "firebase-admin": "^8.9.2",
     "google-auth-library": "^5.10.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "mongoose": "^5.9.1",
     "mongoose-timestamp2": "^0.1.5",
     "multer": "^1.4.2",
